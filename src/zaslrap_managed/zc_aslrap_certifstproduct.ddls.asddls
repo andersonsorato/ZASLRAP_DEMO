@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Consumption - Status Certificado'
-@Metadata.ignorePropagatedAnnotations: true
+//@Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
 define view entity ZC_ASLRAP_CERTIFSTPRODUCT as projection on ZI_ASLRAP_CERTIFSTPRODUCTS
 {
     key StateUuid,

@@ -1,0 +1,72 @@
+managed
+implementation in class zbp_i_aslrap_certifproduct unique;
+strict ( 1 );
+with draft;
+
+define behavior for ZI_ASLRAP_CERTIFPRODUCT alias Certificate
+persistent table zaslrap_certif
+draft table zbaslrap_certif
+lock master total etag LocalLastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  association _stats { create; with draft; }
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  determination setInitialValues on modify { create; }
+  validation checkMaterial on save { field Matnr; create; update; }
+
+  field ( numbering : managed, readonly ) CertUuid;
+  field ( readonly ) Description, version;
+  field ( mandatory ) Matnr;
+
+  mapping for zaslrap_certif
+  {
+  CertUuid             = cert_uuid;
+  matnr                = matnr;
+  version              = version;
+  certstatus           = cert_status;
+  certce               = cert_ce;
+  certgs               = cert_gs;
+  certfcc              = cert_fcc;
+  certiso              = cert_iso;
+  certtuev             = cert_tuev;
+  locallastchangedat   = local_last_changed_at;
+  }
+}
+
+define behavior for ZI_ASLRAP_CERTIFSTPRODUCTS alias CertificadoST
+persistent table zaslrap_cert_st
+draft table zbaslrap_cert_st
+lock dependent by _certif
+authorization dependent by _certif
+//etag master <field_name>
+{
+  //update;
+  delete;
+  field ( readonly ) CertUuid;
+  field ( numbering : managed, readonly ) StateUuid;
+  association _certif { with draft; }
+
+  mapping for zaslrap_cert_st
+  {
+      StateUuid             = state_uuid;
+      certuuid              = cert_uuid;
+      matnr                 = matnr;
+      version               = version;
+      status                = status;
+      statusold             = status_old;
+      lastchangedby         = last_changed_by;
+      lastchangedat         = last_changed_at;
+      locallastchangedat    = local_last_changed_at;
+  }
+}

@@ -2,6 +2,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Certificados'
 @Metadata.ignorePropagatedAnnotations: true
+/*+[hideWarning] { "IDS" : [ "KEY_CHECK" ]  } */
 define view entity ZI_ASLRAP_CERTIF as select from zaslrap_certif
 {
    

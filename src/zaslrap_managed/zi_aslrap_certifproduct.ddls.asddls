@@ -13,7 +13,7 @@ define root view entity ZI_ASLRAP_CERTIFPRODUCT
       Matnr,
       _prod.Description as Description,
       Version,
-      CertStatus,
+      CertStatus,    
       CertCe,
       CertGs,
       CertFcc,
@@ -21,7 +21,8 @@ define root view entity ZI_ASLRAP_CERTIFPRODUCT
       CertTuev,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       LocalLastChangedAt,
-
+      'sap-icom://accounting-document-verification' as Icon,
+      
       _prod,
       _stats
 }
